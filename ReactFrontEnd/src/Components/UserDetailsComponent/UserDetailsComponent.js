@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
     Grid,
     Card,
-    CardContent
+    CardContent,
+    Button,
+    Box
 } from '@material-ui/core';
+import ImageUploader from 'react-images-upload';
 import { makeStyles } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles((theme) => ({
     buttonUpload: {
@@ -16,14 +20,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export function FileUploaderComponent({ test }) {
+export function UserDetailsComponent({ test }) {
     const classes = useStyles();
-
     return (
         <div>
             <Card className={classes.cardShadow}>
                 <CardContent>
-                    file
+                    user
                 </CardContent>
             </Card>
         </div>

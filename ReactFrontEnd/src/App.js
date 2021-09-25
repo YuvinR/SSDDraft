@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import { ImageUploadComponent } from "./Components/ImageUploader/ImageUploadComponent";
 import { FileUploaderComponent } from "./Components/FidleUploader/FileUploaderComponent";
+import { UserDetailsComponent } from "./Components/UserDetailsComponent/UserDetailsComponent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,12 +28,32 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  userCard: {
+  mainDiv: {
     border: '2px red solid',
+    marginTop: '2rem',
+    marginLeft: '2rem',
+    marginRight: '2rem'
+  },
+  userCard: {
     marginTop: '5rem',
     marginLeft: '10rem',
-    marginRight: '10rem'
+    marginRight: '10rem',
+    marginBottom: '2rem'
+  },
+  imageUploadCard: {
+    boxShadow: "0px 0px 8px 0px rgba(0,0,0,0.33)",
+    marginLeft: '10rem',
+    marginRight: '1rem'
+  },
+  fileUploadCard: {
+    boxShadow: "0px 0px 8px 0px rgba(0,0,0,0.33)",
+    marginRight: '10rem',
+    marginLeft: '1rem'
+  },
+  cardShadow: {
+    boxShadow: "0px 0px 8px 0px rgba(0,0,0,0.33)"
   }
+
 }));
 
 
@@ -98,11 +119,33 @@ function App() {
         </Toolbar>
       </AppBar>
 
-      <div>
-        <Grid container md={12} xs={12}>
+      <div className={classes.mainDiv}>
+        <Grid container md={12} xs={12} >
+          <Grid item md={4} xs={12} spacing={2} >
+            <UserDetailsComponent />
+          </Grid>
+          <Grid item md={8} xs={12} >
+            <Grid container md={12} xs={12} >
+              <Grid item md={12} xs={12} >
+                <ImageUploadComponent test={12} />
+              </Grid>
+            </Grid>
+            <Grid container md={12} xs={12} >
+              <Grid item md={12} xs={12} >
+                <FileUploaderComponent test={123} />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+
+      {/* <div>
+        <Grid container md={12} xs={12} >
           <Grid item md={12} xs={12} className={classes.userCard}>
-            <Card>
-              <CardContent>sdsd</CardContent>
+            <Card className={classes.cardShadow}>
+              <CardContent>
+                <UserDetailsComponent />
+              </CardContent>
             </Card>
           </Grid>
         </Grid>
@@ -111,7 +154,7 @@ function App() {
       <div>
         <Grid container md={12} xs={12}>
           <Grid item md={6} xs={12} >
-            <Card>
+            <Card className={classes.imageUploadCard}>
               <CardContent>
                 <ImageUploadComponent test={12} />
               </CardContent>
@@ -119,14 +162,14 @@ function App() {
           </Grid>
 
           <Grid item md={6} xs={12} >
-            <Card>
+            <Card className={classes.fileUploadCard}>
               <CardContent>
                 <FileUploaderComponent test={123} />
               </CardContent>
             </Card>
           </Grid>
         </Grid>
-      </div>
+      </div> */}
 
 
 
