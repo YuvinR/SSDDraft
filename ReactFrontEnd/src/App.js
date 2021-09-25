@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   mainDiv: {
-    border: '2px red solid',
+    border: '0px red solid',
     marginTop: '2rem',
     marginLeft: '2rem',
     marginRight: '2rem'
@@ -59,12 +59,15 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const { user, isAuthenticated, getAccessTokenSilently, loginWithRedirect, getIdTokenClaims } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently, loginWithRedirect, getIdTokenClaims, logout } = useAuth0();
 
   async function Login() {
     loginWithRedirect();
     console.log("isAuthenticated", isAuthenticated);
+  }
 
+  async function Logout() {
+    logout()
   }
 
   async function Check() {
@@ -76,16 +79,14 @@ function App() {
     //   audience: `http://localhost:5020`,
     //   scope: "read:current_user",
     // });
-
     console.log("accessToken", accessToken);
     console.log("getIdTokenClaims", await (await getIdTokenClaims()).__raw);
+    console.log("user ", user)
   }
 
 
   const callSecureApi = async () => {
-
     const token = await getAccessTokenSilently();
-
     const response = await fetch(
       `http://localhost:5020/WeatherForecast/GetStringTest`,
       {
@@ -99,8 +100,6 @@ function App() {
 
     const responseData = await response.json();
     console.log("data", responseData)
-
-
   };
 
   return (
@@ -113,7 +112,11 @@ function App() {
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
-          <Button onClick={() => Login()} color="inherit">Login</Button>
+          {
+            isAuthenticated ?
+              <Button onClick={() => Logout()} color="inherit">Logout</Button> :
+              <Button onClick={() => Login()} color="inherit">Login</Button>
+          }
           <Button onClick={() => Check()} color="inherit">Check</Button>
           <Button onClick={callSecureApi} color="inherit">Call API</Button>
         </Toolbar>
@@ -122,7 +125,10 @@ function App() {
       <div className={classes.mainDiv}>
         <Grid container md={12} xs={12} >
           <Grid item md={4} xs={12} spacing={2} >
-            <UserDetailsComponent />
+            {
+              isAuthenticated ?
+                <UserDetailsComponent userDetails={user} /> : null
+            }
           </Grid>
           <Grid item md={8} xs={12} >
             <Grid container md={12} xs={12} >

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     cardShadow: {
         boxShadow: "0px 0px 8px 0px rgba(0,0,0,0.33)",
         margin: '0.5rem',
-        height: "20rem",
+        maxHeight: "25rem",
         overflowY: "scroll"
     }
 
@@ -38,13 +38,18 @@ export function ImageUploadComponent({ test }) {
     }
 
     async function UploadImage() {
-        alert("Clocked")
+        alert(ImageObject)
     }
 
     return (
         <div>
             <Card className={classes.cardShadow}>
                 <CardContent>
+                    <Box display="flex" justifyContent="flex-end">
+                        <Button variant="contained" color="primary" className={classes.buttonUpload} onClick={UploadImage}>
+                            Upload
+                        </Button>
+                    </Box>
                     <ImageUploader
                         withIcon={false}
                         singleImage={true}
@@ -54,13 +59,6 @@ export function ImageUploadComponent({ test }) {
                         // imgExtension={['.jpg', '.gif', '.png', '.gif']}
                         maxFileSize={5242880}
                     />
-
-                    <Box display="flex" justifyContent="flex-end">
-                        <Button variant="contained" color="primary" className={classes.buttonUpload} onClick={UploadImage}>
-                            Upload
-                        </Button>
-                    </Box>
-
                 </CardContent>
             </Card>
         </div>
