@@ -9,7 +9,13 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useAuth0 } from "@auth0/auth0-react";
-import { Grid } from '@material-ui/core';
+import {
+  Grid,
+  Card,
+  CardContent
+} from '@material-ui/core';
+import { ImageUploadComponent } from "./Components/ImageUploader/ImageUploadComponent";
+import { FileUploaderComponent } from "./Components/FidleUploader/FileUploaderComponent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  userCard: {
+    border: '2px red solid',
+    marginTop: '5rem',
+    marginLeft: '10rem',
+    marginRight: '10rem'
+  }
 }));
 
 
@@ -85,6 +97,39 @@ function App() {
           <Button onClick={callSecureApi} color="inherit">Call API</Button>
         </Toolbar>
       </AppBar>
+
+      <div>
+        <Grid container md={12} xs={12}>
+          <Grid item md={12} xs={12} className={classes.userCard}>
+            <Card>
+              <CardContent>sdsd</CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </div>
+
+      <div>
+        <Grid container md={12} xs={12}>
+          <Grid item md={6} xs={12} >
+            <Card>
+              <CardContent>
+                <ImageUploadComponent test={12} />
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item md={6} xs={12} >
+            <Card>
+              <CardContent>
+                <FileUploaderComponent test={123} />
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </div>
+
+
+
     </div>
   );
 }
