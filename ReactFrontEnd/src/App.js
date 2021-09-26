@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,11 +12,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {
   Grid,
   Card,
-  CardContent
+  Avatar,
+  CardContent,
+  Box
 } from '@material-ui/core';
 import { ImageUploadComponent } from "./Components/ImageUploader/ImageUploadComponent";
 import { FileUploaderComponent } from "./Components/FidleUploader/FileUploaderComponent";
 import { UserDetailsComponent } from "./Components/UserDetailsComponent/UserDetailsComponent";
+import logo from './Images/aboutus.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,8 +55,13 @@ const useStyles = makeStyles((theme) => ({
   },
   cardShadow: {
     boxShadow: "0px 0px 8px 0px rgba(0,0,0,0.33)"
+  },
+  welcomeCard: {
+    height: "20rem",
+    width: "20rem",
+    marginTop: "10rem",
+    marginLeft: "13rem",
   }
-
 }));
 
 
@@ -110,75 +118,68 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            Creatives
           </Typography>
           {
             isAuthenticated ?
-              <Button onClick={() => Logout()} color="inherit">Logout</Button> :
-              <Button onClick={() => Login()} color="inherit">Login</Button>
+              <>
+                <Avatar
+                  alt={user.name}
+                  src={user.picture}
+                />
+                <Button onClick={() => Logout()} color="inherit">Logout</Button>
+                <Button onClick={() => Check()} color="inherit">Check</Button>
+                <Button onClick={callSecureApi} color="inherit">Call API</Button>
+              </> : null
           }
-          <Button onClick={() => Check()} color="inherit">Check</Button>
-          <Button onClick={callSecureApi} color="inherit">Call API</Button>
         </Toolbar>
       </AppBar>
-
-      <div className={classes.mainDiv}>
-        <Grid container md={12} xs={12} >
-          <Grid item md={4} xs={12} spacing={2} >
-            {
-              isAuthenticated ?
-                <UserDetailsComponent userDetails={user} /> : null
-            }
-          </Grid>
-          <Grid item md={8} xs={12} >
+      {
+        isAuthenticated ?
+          <div className={classes.mainDiv}>
             <Grid container md={12} xs={12} >
-              <Grid item md={12} xs={12} >
-                <ImageUploadComponent test={12} />
+              <Grid item md={4} xs={12} spacing={2} >
+                <UserDetailsComponent userDetails={user} />
+              </Grid>
+              <Grid item md={8} xs={12} >
+                <Grid container md={12} xs={12} >
+                  <Grid item md={12} xs={12} >
+                    <ImageUploadComponent test={12} />
+                  </Grid>
+                </Grid>
+                <Grid container md={12} xs={12} >
+                  <Grid item md={12} xs={12} >
+                    <FileUploaderComponent test={123} />
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
+          </div> :
+          <div>
             <Grid container md={12} xs={12} >
-              <Grid item md={12} xs={12} >
-                <FileUploaderComponent test={123} />
+              <Grid item md={4} xs={12} spacing={2} >
+                <div className={classes.welcomeCard}>
+                  <Typography variant="h4">
+                    We Are Creatives.....
+                  </Typography> <br />
+                  <Typography variant="caption">
+                    Take up one idea. Make that one idea your life--think of it, dream of it, live on that idea. Let the brain, muscles, nerves, every part of your body, be full of that idea, and just leave every other idea alone. This is the way to success.
+                  </Typography> <br />
+                  <div>
+                    <br />
+                    <Box display="flex" justifyContent="flex-end">
+                      <Button variant="outlined" size="large" style={{ marginRight: '0.5rem' }} >Explore</Button>
+                      <Button variant="contained" color="primary" size="large" onClick={() => Login()}>LOGIN</Button>
+                    </Box>
+                  </div>
+                </div>
+              </Grid>
+              <Grid item md={8} xs={12} spacing={2} >
+                <img src={logo} alt="Logo" width={"60%"} height={"80%"} style={{ marginTop: '4rem', marginRight: '15rem', float: "right" }} />
               </Grid>
             </Grid>
-          </Grid>
-        </Grid>
-      </div>
-
-      {/* <div>
-        <Grid container md={12} xs={12} >
-          <Grid item md={12} xs={12} className={classes.userCard}>
-            <Card className={classes.cardShadow}>
-              <CardContent>
-                <UserDetailsComponent />
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </div>
-
-      <div>
-        <Grid container md={12} xs={12}>
-          <Grid item md={6} xs={12} >
-            <Card className={classes.imageUploadCard}>
-              <CardContent>
-                <ImageUploadComponent test={12} />
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item md={6} xs={12} >
-            <Card className={classes.fileUploadCard}>
-              <CardContent>
-                <FileUploaderComponent test={123} />
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </div> */}
-
-
-
+          </div>
+      }
     </div>
   );
 }
