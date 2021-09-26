@@ -12,6 +12,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {
   Grid,
   Card,
+  Avatar,
   CardContent,
   Box
 } from '@material-ui/core';
@@ -59,9 +60,8 @@ const useStyles = makeStyles((theme) => ({
     height: "20rem",
     width: "20rem",
     marginTop: "10rem",
-    margin: "0 auto",
+    marginLeft: "13rem",
   }
-
 }));
 
 
@@ -123,6 +123,10 @@ function App() {
           {
             isAuthenticated ?
               <>
+                <Avatar
+                  alt={user.name}
+                  src={user.picture}
+                />
                 <Button onClick={() => Logout()} color="inherit">Logout</Button>
                 <Button onClick={() => Check()} color="inherit">Check</Button>
                 <Button onClick={callSecureApi} color="inherit">Call API</Button>
@@ -159,7 +163,7 @@ function App() {
                     We Are Creatives.....
                   </Typography> <br />
                   <Typography variant="caption">
-                    Explore more in your life, moreover good feelings....
+                    Take up one idea. Make that one idea your life--think of it, dream of it, live on that idea. Let the brain, muscles, nerves, every part of your body, be full of that idea, and just leave every other idea alone. This is the way to success.
                   </Typography> <br />
                   <div>
                     <br />
