@@ -8,6 +8,6 @@ namespace Assignment2API.Models
     public class TestModel
     {
         public string Token { get; set; }
-        
+
     }
 }

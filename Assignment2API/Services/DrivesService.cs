@@ -16,13 +16,14 @@ namespace Assignment2API.Services
         {
             var tokenResponse = new TokenResponse
             {
-                AccessToken = "ya29.a0ARrdaM8iXDHkMufHUaSsSdUwrlP9cBkSkXH4DkWQTjZ8Lu28oT4JpGA2Y-lNk6D-lCTKlL1TsnJEecEsPDiWgGV3by4hP-ebYQroDY3tlBfpOJfTGkrY3xRnzPW-z0j2gdn0KczdC7prvL6ET8NtBWYephGq",
-                RefreshToken = "1//04Ip3oOPcV1T1CgYIARAAGAQSNwF-L9IrTKvgIyCPQPSsAslA_rV4WP5T-2jGAEH6cZCYV5k5H-9ApifhaV4kF0BJOQzry4GJNik"
+                AccessToken = test.Token,
+                RefreshToken = "1//04q1DOu87Mh7-CgYIARAAGAQSNwF-L9IrDwXy_xi2O8sfQk0SHsPcWoeV5pRTmBMLJ85vlISi2ETlM1mIREE9_eGQiNPrIMX-acE"
+                
             };
 
 
             var applicationName = "SSD Assignment 2";// Use the name of the project in Google Cloud
-            var username = "it18146516@my.sliit.lk"; // Use your email
+            var username = "yuvinransika1998@gmail.com";//"it18146516@my.sliit.lk"; // Use your email
 
 
             var apiCodeFlow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
@@ -34,6 +35,7 @@ namespace Assignment2API.Services
                 },
                 Scopes = new[] { Scope.Drive},
                 DataStore = new FileDataStore(applicationName)
+                
             });
 
 
@@ -44,9 +46,13 @@ namespace Assignment2API.Services
             {
                 HttpClientInitializer = credential,
                 ApplicationName = applicationName,
+                
             });
 
             return service;
         }
+
+
+
     }
 }

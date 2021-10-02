@@ -41,13 +41,12 @@ namespace Assignment2API.Controllers
         }
 
         [HttpPost]
-        
         [Route("GetStringTest")]
         public string GetStringTest([FromBody] TestModel test)
         {
             CreateFileService cfs = new CreateFileService();
 
-            return cfs.CreateFolder(test, "Videos", "GGLKV1");
+            return cfs.CreateFolder(test, "root", "GGLKV3");
         }
 
 
