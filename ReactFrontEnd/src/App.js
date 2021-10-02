@@ -208,7 +208,7 @@ fetch('http://localhost:5020/WeatherForecast/GetStringTest', requestOptions)
                     <Box display="flex" justifyContent="flex-end">
                       <Button variant="outlined" size="large" style={{ marginRight: '0.5rem' }} >Explore</Button>
                       <GoogleLogin
-            clientId="qrhrciub8l3ev12ac6esqs7vfc88l8gr.apps.googleusercontent.com"
+            clientId="885024372915-qrhrciub8l3ev12ac6esqs7vfc88l8gr.apps.googleusercontent.com"
             buttonText="Google Login"
             onSuccess={googleResponse}
             onFailure={googleResponse}

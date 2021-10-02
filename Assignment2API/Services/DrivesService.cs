@@ -29,8 +29,8 @@ namespace Assignment2API.Services
             {
                 ClientSecrets = new ClientSecrets
                 {
-                    ClientId = "498272007291-d3r37sr7ucqge4362loc9sjf77de8n6d.apps.googleusercontent.com",
-                    ClientSecret = "vhXPynUo991mDFM_Dhu1VM37"
+                    ClientId = "885024372915-qrhrciub8l3ev12ac6esqs7vfc88l8gr.apps.googleusercontent.com",
+                    ClientSecret = "OCkyLyTBv2Ercqdu5s7kLevu"
                 },
                 Scopes = new[] { Scope.Drive},
                 DataStore = new FileDataStore(applicationName)

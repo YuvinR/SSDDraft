@@ -47,7 +47,7 @@ namespace Assignment2API.Controllers
         {
             CreateFileService cfs = new CreateFileService();
 
-            return cfs.CreateFolder(test,"GGLK","GGLKV1");
+            return cfs.CreateFolder(test, "Videos", "GGLKV1");
         }
 
 
