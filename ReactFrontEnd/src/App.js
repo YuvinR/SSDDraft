@@ -21,6 +21,7 @@ import { FileUploaderComponent } from "./Components/FidleUploader/FileUploaderCo
 import { UserDetailsComponent } from "./Components/UserDetailsComponent/UserDetailsComponent";
 import logo from './Images/aboutus.png';
 import { GoogleLogin } from 'react-google-login';
+import { GoogleLogout } from 'react-google-oauth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,84 +69,30 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const { user, isAuthenticated, getAccessTokenSilently, loginWithRedirect, getIdTokenClaims, logout } = useAuth0();
+  const [UserDetails, setUserDetails] = useState(null)
 
-  async function Login() {
-    loginWithRedirect();
-    console.log("isAuthenticated", isAuthenticated);
-  }
+  useEffect(() => {
+    Logout()
+  }, [])
 
   async function Logout() {
-    logout()
+    setUserDetails(null);
+    sessionStorage.clear();
+    localStorage.clear();
   }
 
-  async function Check() {
-    console.log("isAuthenticated", isAuthenticated);
+  const googleResponse = (response) => {
+    console.log("tokenObj", response);
 
-    const domain = "dev-upkur7si.us.auth0.com";
-    const accessToken = await getAccessTokenSilently();
-    //  const accessToken = await getAccessTokenSilently({
-    //   audience: `http://localhost:5020`,
-    //   scope: "read:current_user",
-    // });
-    console.log("accessToken", accessToken);
-    console.log("getIdTokenClaims", await (await getIdTokenClaims()).__raw);
-    console.log("user ", user)
-  }
-
-
-
-  const callSecureApi = async () => {
-    const token = await getAccessTokenSilently();
-    const response = await fetch(
-      `http://localhost:5020/WeatherForecast/GetStringTest`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          ContentType: 'application/json',
-          Accept: 'application/json'
-        },
-      }
-    );
-
-    const responseData = await response.json();
-    console.log("data", responseData)
-  };
-
- const googleResponse = (response) => {
-  console.log("response",response.accessToken);
-  console.log("tokenObj",response);
-  
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token: response.accessToken })
-};
-fetch('http://localhost:5020/WeatherForecast/GetStringTest', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log("pakayooo"));
-
+    setUserDetails(response.profileObj)
+    sessionStorage.setItem("accessToken", response.tokenObj.access_token)
+    sessionStorage.setItem("email", response.profileObj.email)
+    sessionStorage.setItem("userName", response.profileObj.givenName)
 
     if (!response.tokenId) {
       console.error("Unable to get tokenId from Google", response)
       return;
     }
-
-    // const tokenBlob = new Blob([JSON.stringify({ tokenId: response.tokenId }, null, 2)], { type: 'application/json' });
-    // const options = {
-    //   method: 'POST',
-    //   body: tokenBlob,
-    //   mode: 'cors',
-    //   cache: 'default'
-    // };
-    // fetch(config.GOOGLE_AUTH_CALLBACK_URL, options)
-    //   .then(r => {
-    //     r.json().then(user => {
-    //       const token = user.token;
-    //       console.log(token);
-    //       this.props.login(token);
-    //     });
-    //   })
   };
 
   return (
@@ -159,25 +106,23 @@ fetch('http://localhost:5020/WeatherForecast/GetStringTest', requestOptions)
             Creatives
           </Typography>
           {
-            isAuthenticated ?
+            UserDetails !== null ?
               <>
                 <Avatar
-                  alt={user.name}
-                  src={user.picture}
+                  alt={UserDetails.name}
+                  src={UserDetails.imageUrl}
                 />
                 <Button onClick={() => Logout()} color="inherit">Logout</Button>
-                <Button onClick={() => Check()} color="inherit">Check</Button>
-                <Button onClick={callSecureApi} color="inherit">Call API</Button>
               </> : null
           }
         </Toolbar>
       </AppBar>
       {
-        isAuthenticated ?
+        UserDetails !== null ?
           <div className={classes.mainDiv}>
             <Grid container md={12} xs={12} >
               <Grid item md={4} xs={12} spacing={2} >
-                <UserDetailsComponent userDetails={user} />
+                <UserDetailsComponent userDetails={UserDetails} />
               </Grid>
               <Grid item md={8} xs={12} >
                 <Grid container md={12} xs={12} >
@@ -208,22 +153,11 @@ fetch('http://localhost:5020/WeatherForecast/GetStringTest', requestOptions)
                     <Box display="flex" justifyContent="flex-end">
                       <Button variant="outlined" size="large" style={{ marginRight: '0.5rem' }} >Explore</Button>
                       <GoogleLogin
-            clientId="885024372915-qrhrciub8l3ev12ac6esqs7vfc88l8gr.apps.googleusercontent.com"
-            buttonText="Google Login"
-            onSuccess={googleResponse}
-            onFailure={googleResponse}
-          />
-                      {/* <Button variant="contained" color="primary" size="large" onClick={() => Login()}>LOGIN</Button> */}
-                      {/* <GoogleAPI
-                        clientId="498272007291-d3r37sr7ucqge4362loc9sjf77de8n6d.apps.googleusercontent.com"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                      > */}
-                        {/* <div>
-                          <div><GoogleLogin /></div>
-                          <div><GoogleLogout /></div>
-                        </div>
-                      </GoogleAPI> */}
+                        clientId="140046450904-cinjvl471pobvqrbsiutfj57mfgif73h.apps.googleusercontent.com"
+                        buttonText="Google Login"
+                        onSuccess={googleResponse}
+                        onFailure={googleResponse}
+                      />
                     </Box>
                   </div>
                 </div>

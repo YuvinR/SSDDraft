@@ -37,29 +37,30 @@ export function ImageUploadComponent({ test }) {
         console.log("imageUrl ", imageUrl[0])
         var convertedString = imageUrl[0];
         var fields = convertedString.split(",");
-        console.log("feildname",fields[0]);
-        console.log("feildnamexxx",fields[1]);
+        console.log("feildname", fields[0]);
+        console.log("feildnamexxx", fields[1]);
         setImageObject(fields[1]);
-       
+
     }
 
     async function UploadImage() {
-        const token = await getAccessTokenSilently();
+        const token = sessionStorage.getItem("accessToken");
         console.log("tokenggi", token);
 
         var gg = {
-            userName:user.name,
-            imageData:ImageObject
+            userName: sessionStorage.getItem("userName"),
+            email: sessionStorage.getItem("email"),
+            imageData: ImageObject
         }
 
         console.log("setImageObject ", gg)
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${token}`,  'Accept': 'application/json'},
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' },
             body: JSON.stringify(gg)
         };
         const response = await fetch(
-            'http://localhost:5020/api/ImagesHandler/ImageDataSave', requestOptions
+            'http://localhost:5001/api/ImagesHandler/ImageDataSave', requestOptions
         );
 
         const responseData = await response.json();
@@ -71,14 +72,14 @@ export function ImageUploadComponent({ test }) {
         console.log("tokenggi", token);
 
         var gg = {
-            userName:user.name,
-            imageData:ImageObject
+            userName: user.name,
+            imageData: ImageObject
         }
 
         console.log("setImageObject ", gg)
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json','Authorization': `Bearer ${token}`,  'Accept': 'application/json'},
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' },
             body: gg
         };
         const response = await fetch(
@@ -87,14 +88,14 @@ export function ImageUploadComponent({ test }) {
 
         const responseData = await response.json();
         console.log("data", responseData)
-      };
+    };
 
     return (
         <div>
             <Card className={classes.cardShadow}>
                 <CardContent>
                     <Box display="flex" justifyContent="flex-end">
-                        <Button variant="contained"  color="primary" className={classes.buttonUpload} onClick={UploadImage}>
+                        <Button variant="contained" color="primary" className={classes.buttonUpload} onClick={UploadImage}>
                             Upload
                         </Button>
                     </Box>
