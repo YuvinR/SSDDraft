@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Assignment2API.Models;
+using Assignment2API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -38,12 +40,14 @@ namespace Assignment2API.Controllers
             .ToArray();
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpPost]
+        
         [Route("GetStringTest")]
-        public string GetStringTest()
+        public string GetStringTest([FromBody] TestModel test)
         {
-            return "Calling with authorization";
+            CreateFileService cfs = new CreateFileService();
+
+            return cfs.CreateFolder(test,"GGLK","GGLKV1");
         }
 
 

@@ -20,6 +20,7 @@ import { ImageUploadComponent } from "./Components/ImageUploader/ImageUploadComp
 import { FileUploaderComponent } from "./Components/FidleUploader/FileUploaderComponent";
 import { UserDetailsComponent } from "./Components/UserDetailsComponent/UserDetailsComponent";
 import logo from './Images/aboutus.png';
+import { GoogleLogin } from 'react-google-login';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,6 +94,7 @@ function App() {
   }
 
 
+
   const callSecureApi = async () => {
     const token = await getAccessTokenSilently();
     const response = await fetch(
@@ -108,6 +110,42 @@ function App() {
 
     const responseData = await response.json();
     console.log("data", responseData)
+  };
+
+ const googleResponse = (response) => {
+  console.log("response",response.accessToken);
+  console.log("tokenObj",response);
+  
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: response.accessToken })
+};
+fetch('http://localhost:5020/WeatherForecast/GetStringTest', requestOptions)
+    .then(response => response.json())
+    .then(data => console.log("pakayooo"));
+
+
+    if (!response.tokenId) {
+      console.error("Unable to get tokenId from Google", response)
+      return;
+    }
+
+    // const tokenBlob = new Blob([JSON.stringify({ tokenId: response.tokenId }, null, 2)], { type: 'application/json' });
+    // const options = {
+    //   method: 'POST',
+    //   body: tokenBlob,
+    //   mode: 'cors',
+    //   cache: 'default'
+    // };
+    // fetch(config.GOOGLE_AUTH_CALLBACK_URL, options)
+    //   .then(r => {
+    //     r.json().then(user => {
+    //       const token = user.token;
+    //       console.log(token);
+    //       this.props.login(token);
+    //     });
+    //   })
   };
 
   return (
@@ -169,7 +207,23 @@ function App() {
                     <br />
                     <Box display="flex" justifyContent="flex-end">
                       <Button variant="outlined" size="large" style={{ marginRight: '0.5rem' }} >Explore</Button>
-                      <Button variant="contained" color="primary" size="large" onClick={() => Login()}>LOGIN</Button>
+                      <GoogleLogin
+            clientId="qrhrciub8l3ev12ac6esqs7vfc88l8gr.apps.googleusercontent.com"
+            buttonText="Google Login"
+            onSuccess={googleResponse}
+            onFailure={googleResponse}
+          />
+                      {/* <Button variant="contained" color="primary" size="large" onClick={() => Login()}>LOGIN</Button> */}
+                      {/* <GoogleAPI
+                        clientId="498272007291-d3r37sr7ucqge4362loc9sjf77de8n6d.apps.googleusercontent.com"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                      > */}
+                        {/* <div>
+                          <div><GoogleLogin /></div>
+                          <div><GoogleLogout /></div>
+                        </div>
+                      </GoogleAPI> */}
                     </Box>
                   </div>
                 </div>
