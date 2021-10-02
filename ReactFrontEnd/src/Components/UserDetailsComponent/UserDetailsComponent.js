@@ -37,7 +37,7 @@ export function UserDetailsComponent({ userDetails }) {
                         <Grid item md={12} xs={12} >
                             <Avatar
                                 alt={userDetails.name}
-                                src={userDetails.picture}
+                                src={userDetails.imageUrl}
                                 className={classes.avatar}
                             />
                         </Grid>
@@ -50,7 +50,7 @@ export function UserDetailsComponent({ userDetails }) {
                     </Grid>
                     <Grid container md={12} xs={12} style={{ marginTop: "1rem" }} >
                         <Grid item md={12} xs={12} >
-                            <TextField id="outlined-basic" label="Nickname" fullWidth variant="outlined" defaultValue={userDetails.nickname} disabled={true} />
+                            <TextField id="outlined-basic" label="Nickname" fullWidth variant="outlined" defaultValue={userDetails.familyName} disabled={true} />
                         </Grid>
                     </Grid>
                     <Grid container md={12} xs={12} style={{ marginTop: "1rem" }}>
