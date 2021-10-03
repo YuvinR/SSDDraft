@@ -158,6 +158,7 @@ function App() {
                         scope="https://www.googleapis.com/auth/drive"
                         onSuccess={googleResponse}
                         onFailure={googleResponse}
+                        accessType="offline"
                       />
                     </Box>
                   </div>

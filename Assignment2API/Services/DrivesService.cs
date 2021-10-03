@@ -20,7 +20,6 @@ namespace Assignment2API.Services
                 RefreshToken = "1//04q1DOu87Mh7-CgYIARAAGAQSNwF-L9IrDwXy_xi2O8sfQk0SHsPcWoeV5pRTmBMLJ85vlISi2ETlM1mIREE9_eGQiNPrIMX-acE"
             };
 
-
             var applicationName = "SSD Assignment 2";// Use the name of the project in Google Cloud
             var username = "yuvinransika1998@gmail.com";//"it18146516@my.sliit.lk"; // Use your email
 
