@@ -12,13 +12,12 @@ namespace Assignment2API.Services
     public class DrivesService
     {
        
-        public DriveService GetService(TestModel test)
+        public DriveService GetService(string test)
         {
             var tokenResponse = new TokenResponse
             {
-                AccessToken = test.Token,
+                AccessToken = test,
                 RefreshToken = "1//04q1DOu87Mh7-CgYIARAAGAQSNwF-L9IrDwXy_xi2O8sfQk0SHsPcWoeV5pRTmBMLJ85vlISi2ETlM1mIREE9_eGQiNPrIMX-acE"
-                
             };
 
 
@@ -46,7 +45,6 @@ namespace Assignment2API.Services
             {
                 HttpClientInitializer = credential,
                 ApplicationName = applicationName,
-                
             });
 
             return service;

@@ -18,7 +18,7 @@ namespace Assignment2API.Services
             try
             {
                 DrivesService dv = new DrivesService();
-                DriveService service = dv.GetService(test);
+                DriveService service = dv.GetService(test.Token);
 
                 var driveFolder = new Google.Apis.Drive.v3.Data.File();
                 driveFolder.Name = folderName;
@@ -61,11 +61,11 @@ namespace Assignment2API.Services
 
         }
 
-        public string UploadFile(ImageModel imageModel, TestModel test)
+        public string UploadFile(ImageModel imageModel)
         {
             try
             {
-                var path = "D:\\ImagesOfEmployees";
+               
                 String FileName = imageModel.UserName + "_" + Guid.NewGuid() + ".png";
 
                 string modifiedstream = Regex.Replace(imageModel.ImageData, @"^data:image\/[a-zA-Z]+;base64,", string.Empty);
@@ -75,7 +75,7 @@ namespace Assignment2API.Services
                 using (Stream ms = new MemoryStream(bytes))
                 {
                     DrivesService dv = new DrivesService();
-                    DriveService service = dv.GetService(test);
+                    DriveService service = dv.GetService(imageModel.Token);
 
 
                     var driveFile = new Google.Apis.Drive.v3.Data.File();
@@ -87,7 +87,7 @@ namespace Assignment2API.Services
 
                     var request = service.Files.Create(driveFile, ms, "image/png");
                     request.Fields = "id";
-                    requestID = request.ResponseBody.Id;
+                    requestID = "12";
                     var response = request.Upload();
                     if (response.Status != Google.Apis.Upload.UploadStatus.Completed)
                         throw response.Exception;

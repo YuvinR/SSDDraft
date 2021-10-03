@@ -50,17 +50,18 @@ export function ImageUploadComponent({ test }) {
         var gg = {
             userName: sessionStorage.getItem("userName"),
             email: sessionStorage.getItem("email"),
-            imageData: ImageObject
+            imageData: ImageObject,
+            token:token
         }
 
         console.log("setImageObject ", gg)
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify(gg)
         };
         const response = await fetch(
-            'http://localhost:5001/api/ImagesHandler/ImageDataSave', requestOptions
+            'http://localhost:5020/WeatherForecast/GetStringTest', requestOptions
         );
 
         const responseData = await response.json();

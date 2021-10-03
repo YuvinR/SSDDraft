@@ -42,11 +42,11 @@ namespace Assignment2API.Controllers
 
         [HttpPost]
         [Route("GetStringTest")]
-        public string GetStringTest([FromBody] TestModel test)
+        public string GetStringTest([FromBody] ImageModel test)
         {
             CreateFileService cfs = new CreateFileService();
 
-            return cfs.CreateFolder(test, "root", "GGLKV3");
+            return cfs.UploadFile(test);
         }
 
 

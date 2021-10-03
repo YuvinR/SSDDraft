@@ -153,8 +153,9 @@ function App() {
                     <Box display="flex" justifyContent="flex-end">
                       <Button variant="outlined" size="large" style={{ marginRight: '0.5rem' }} >Explore</Button>
                       <GoogleLogin
-                        clientId="140046450904-cinjvl471pobvqrbsiutfj57mfgif73h.apps.googleusercontent.com"
+                        clientId="885024372915-qrhrciub8l3ev12ac6esqs7vfc88l8gr.apps.googleusercontent.com"
                         buttonText="Google Login"
+                        scope="https://www.googleapis.com/auth/drive"
                         onSuccess={googleResponse}
                         onFailure={googleResponse}
                       />

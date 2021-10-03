@@ -9,5 +9,7 @@ namespace Assignment2API.Models
     {
         public string UserName { get; set; }
         public string ImageData { get; set; }
+        public string Token { get; set; }
+        public string Email { get; set; }
     }
 }
